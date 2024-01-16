@@ -14,11 +14,11 @@ def restaurant_login():
   email_address = request.json.get('email')
   password = request.json.get('password')
 
-  print(email_address, password)
+  # print(email_address, password)
   
   result = run_statement('CALL get_restaurant_by_email(?)', [email_address])
 
-  print("what is this", result)
+  # print("what is this", result)
 
   if (len(result)<1):
    return make_response(jsonify("Email not in use"), 401)
@@ -49,7 +49,7 @@ def get_all_restaurant():
 
     result = run_statement('CALL get_all_restaurant')
 
-    all_restaurants = serialize_data(restaurants_columns, result)[0]
+    all_restaurants = serialize_data(restaurants_columns, result)
 
     return make_response(jsonify(all_restaurants),  200)
   except:
@@ -76,7 +76,7 @@ def get_restaurant():
 
 @restaurant_bp.delete("/restaurant-login")
 @validate_restaurant_token
-def resturant_logout():
+def restaurant_logout():
  try:
   token = request.headers.get('token')
   # print("CHECK THIS", token)
@@ -87,11 +87,11 @@ def resturant_logout():
   
   session = serialize_data(session_columns, result)[0]
   
-  print("Pikin", session)
+  # print("Pikin", session)
 
   result = run_statement('CALL delete_restaurant_session(?)', [session['restaurant_id']])
 
-  print("Omobaba", session['restaurant_id'])
+  # print("Omobaba", session['restaurant_id'])
 
   return make_response(jsonify("You have successfully logged Out"),  200)
  except:

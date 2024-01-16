@@ -72,6 +72,7 @@ def get_all_clients():
     return make_response(jsonify(result),  200)
   except:
     return make_response("This is an error", 400)
+  
 
 @client_bp.delete("/client-login")
 @validate_token

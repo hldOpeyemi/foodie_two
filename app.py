@@ -17,8 +17,6 @@ app = Flask(__name__)
 def health_check():
   return make_response("API online", 200)
 
-# CLIENT SECTION
-
 @app.get("/private")
 @validate_token
 def private_router():

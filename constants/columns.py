@@ -4,4 +4,4 @@ restaurant_columns = ['id', 'name', 'email_address', 'address', 'phone_number', 
 token_columns = ['client_id', 'token']
 restuarant_signup_columns = ['id', 'name', 'email_address']
 restaurants_columns = ['id', 'name', 'email_address', 'address', 'phone_number', 'bio','city', 'profile_url', 'banner_url']
-menu_columns = ['name', 'description','image_url', 'price', 'restaurant_id']
+menu_columns = ['id','name', 'description','image_url', 'price', 'restaurant_id']
