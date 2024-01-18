@@ -43,7 +43,7 @@ def get_menu_by_id():
 @validate_restaurant_token
 def add_dish_to_menu():
  try:
-  print("testing")
+  
   token = request.headers.get('token')
   result = run_statement('CALL get_restaurant_session_by_token(?)', [token])
 
@@ -60,8 +60,10 @@ def add_dish_to_menu():
   if (restaurant_id == None or restaurant_id == ""):
     return make_response(jsonify("Please provide a restaurant_id"), 403)
   
-  # if (id != restaurant_id):
-  #  return make_response(jsonify("Wrong Restaurant"), 403)
+  print("id", id, type(id), "----", "restaurant_id", restaurant_id, type(restaurant_id))
+
+  if (id != int(restaurant_id)):
+   return make_response(jsonify("Wrong Restaurant"), 403)
       
   result = run_statement('CALL add_item_to_menu(?,?,?,?,?)', [name, description, image_url, price, restaurant_id])
   
@@ -107,7 +109,7 @@ def update_dish():
   # Creating a empty obj to hold either passed value or None for later updating
   menu_data = {}
 
-  menu_data['id'] = request.json.get('id') if request.json.get('id') else None
+  menu_data['id'] = request.json.get('id')
   menu_data['name'] = request.json.get('name') if request.json.get('name') else None
   menu_data['description'] = request.json.get('description') if request.json.get('description') else None
   menu_data['image_url'] = request.json.get('image_url') if request.json.get('image_url') else None
@@ -125,8 +127,10 @@ def update_dish():
   )
 
   # print(result)
-  # # client = serialize_data(client_columns, result)[0]
+  updated_dish = serialize_data(menu_columns, result)[0]
 
-  return make_response(jsonify("Dish succesfully updated"),  200)
+  # return updated_dish
+
+  return make_response(jsonify("Dish succesfully updated"), 200)
  except:
   return make_response("This is an error", 400)
